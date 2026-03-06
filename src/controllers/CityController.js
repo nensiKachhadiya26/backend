@@ -23,11 +23,18 @@ const getCityById = async(req,res)=>{
 }
 
 const addCity = async(req,res)=>{
-    const savedCity = await citySchema.create(req.body)
-    res.status(201).json({
-        message:"Data Saved..",
-        data:savedCity,
+    try{
+        const savedCity = await citySchema.create(req.body)
+        res.status(201).json({
+            message:"Data Saved..",
+            data:savedCity,
+        });
+    }catch(err){
+        res.status(500).json({
+        message:"error while creating city",
+        err:err
     });
+}
 }
 
 const deleteCity = async(req,res)=>{
@@ -43,10 +50,20 @@ const deleteCity = async(req,res)=>{
         })
     }
 }
+const updateCity = async(req,res)=>{
+    const updateObj = await citySchema.findByIdAndUpdate(req.params.id,req.body,{new:true  })
+        res.status(200).json({
+            message:"data updated..",
+            data:updateObj
+      
+    })
+}
+
 
 module.exports = {
     getAllCities,
     getCityById,
     addCity,
     deleteCity,
+    updateCity
 }

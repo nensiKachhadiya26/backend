@@ -8,6 +8,13 @@ const productSchema = new Schema({
     },
     productPrice:{
         type:Number
+    },
+    productColor:[{
+        type:String
+    }],
+    productSize:{
+        enum:["S","M","L","XL","XXL"],
+        type:String
     }
 })
 module.exports = mongoose.model("products",productSchema)

@@ -23,12 +23,19 @@ const getBookById = async(req,res) =>{
 }
 
 const addBook = async(req,res)=>{
-    const savedBook = await bookSchema.create(req.body);
-    res.status(201).json({
-        message:"Data Saved..",
-        data:savedBook,
+    try{
+        const savedBook = await bookSchema.create(req.body);
+        res.status(201).json({
+            message:"Data Saved..",
+            data:savedBook,
+        });
+    }catch(err){
+        res.status(500).json({
+        message:"error while creating product",
+        err:err
     });
 };
+}
 
 const deleteBook = async(req,res)=>{
     const deleteBookObj = await bookSchema.findByIdAndDelete(req.params.id)
@@ -43,10 +50,18 @@ const deleteBook = async(req,res)=>{
         })
     }
 }
+const updateBook = async(req,res) => {
+    const updateObj = await bookSchema.findByIdAndUpdate(req.params.id,req.body,{new:true},)
+    res.status(200).json({
+        message:"data updated..",
+        data:updateObj
+    })
+}
 
 module.exports = {
     getAllBooks,
     getBookById,
     addBook,
-    deleteBook
+    deleteBook,
+    updateBook
 }

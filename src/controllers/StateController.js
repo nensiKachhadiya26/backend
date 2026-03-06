@@ -23,13 +23,18 @@ const getStateById = async(req,res)=>{
 }
 
 const addState = async(req,res)=>{
-    const savedState = await stateSchema.create(req.body)
-    if(savedState){
+    try{
+        const savedState = await stateSchema.create(req.body)
         res.status(201).json({
             message:"data saved successfully..",
             data:savedState
         })
-    }
+    }catch(err){
+        res.status(500).json({
+        message:"error while creating product",
+        err:err
+    });
+}   
 }
 
 const deleteState = async(req,res)=>{
@@ -45,10 +50,18 @@ const deleteState = async(req,res)=>{
         })
     }
 }
+const updateState = async(req,res)=>{
+    const updateObj = await stateSchema.findByIdAndUpdate(req.params.id,req.body,{new:true})
+    res.status(200).json({
+        message:"data updated...",
+        data:updateObj
+    })
+}
 
 module.exports = {
     getAllState,
     deleteState,
     getStateById,
-    addState
+    addState,
+    updateState
 }

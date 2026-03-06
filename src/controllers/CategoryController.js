@@ -23,13 +23,18 @@ const getCategoryById = async(req,res)=>{
 }
 
 const addCategory = async(req,res)=>{
-    const savedCategory = await categorySchema.create(req.body)
-    if(savedCategory){
+    try{
+        const savedCategory = await categorySchema.create(req.body)
         res.status(201).json({
             message:"data can saved successfully..",
             data:savedCategory
         })
-    }
+    }catch(err){
+        res.status(500).json({
+        message:"error while creating product",
+        err:err
+    });
+}
 }
 
 const deleteCategory = async(req,res)=>{
@@ -46,12 +51,20 @@ const deleteCategory = async(req,res)=>{
     }
 
 }
+const updateCategory = async(req,res)=>{
+    const updateObj = await categorySchema.findByIdAndUpdate(req.params.id,req.body,{new:true})
+    res.status(200).json({
+        message:"data updated..",
+        data:updateObj
+    })
+}
 
 
 module.exports = {
     getAllCategory,
     deleteCategory,
     addCategory,
-    getCategoryById
+    getCategoryById,
+    updateCategory
 
 }

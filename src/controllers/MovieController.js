@@ -23,11 +23,18 @@ const movieGetById = async(req,res)=>{
 }
 
 const addMovie = async(req,res)=>{
-    const savedMovie = await movieSchema.create(req.body)
-    res.status(201).json({
-        message:"data saved successfully..",
-        data:savedMovie
-    })
+    try{
+        const savedMovie = await movieSchema.create(req.body)
+        res.status(201).json({
+            message:"data saved successfully..",
+            data:savedMovie
+        })
+    }catch(err){
+        res.status(500).json({
+        message:"error while creating product",
+        err:err
+    });
+}
 }
 
 const deleteMovie = async(req,res)=>{
@@ -43,6 +50,13 @@ const deleteMovie = async(req,res)=>{
         })
     }
 }
+const updateMovie = async(req,res)=>{
+    const updateObj = await movieSchema.findByIdAndUpdate(req.params.id,req.body,{new:true})
+    res.status(200).json({
+        message:"data updated..",
+        data:updateObj
+    })
+}
 
 
 
@@ -50,5 +64,6 @@ module.exports = {
     getAllMovie,
     deleteMovie,
     addMovie,
-    movieGetById
+    movieGetById,
+    updateMovie
 }

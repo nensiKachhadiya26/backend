@@ -27,13 +27,20 @@ const getProductById = async (req, res) => {
 };
 
 const addProduct = async (req, res) => {
-  //console.log("body...",req.body)
-  const savedProduct = await productSchema.create(req.body);
-  res.status(201).json({
-    message: "product saved",
-    data: savedProduct,
-  });
-};
+//console.log("body...",req.body)
+  try{
+    const savedProduct = await productSchema.create(req.body);
+    res.status(201).json({
+      message: "product saved",
+      data: savedProduct,
+    });
+  }catch(err){
+    res.status(500).json({
+      message:"error while creating product",
+      err:err
+    });
+}
+}
 
 const deleteProduct = async (req, res) => {
   //delete from products where id = ?
@@ -56,11 +63,30 @@ const deleteProduct = async (req, res) => {
   }
 };
 
+const updateProduct = async(req,res)=>{
+  const updateObj = await productSchema.findByIdAndUpdate(req.params.id,req.body,{new:true},)
+  res.status(200).json({
+    message:"data updated...",
+    data:updateObj
+  })
+}
 
+const searchProduct = async(req,res)=>{
+    const searchParam = req.query;
+    console.log("req.query",searchParam)
+
+      res.json({
+        message:"searching...."
+      })
+
+
+}
 
 module.exports = {
     getAllProducts,
     getProductById,
     addProduct,
-    deleteProduct
+    deleteProduct,
+    updateProduct,
+    searchProduct
 }
