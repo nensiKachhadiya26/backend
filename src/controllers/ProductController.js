@@ -78,8 +78,32 @@ const searchProduct = async(req,res)=>{
       res.json({
         message:"searching...."
       })
-
-
+}
+const addColor = async(req,res)=>{
+    try{
+      const addNewColor = await productSchema.findByIdAndUpdate(req.params.id,{$push:{productColor:req.body.productColor}},{new:true})
+      res.status(200).json({
+        message:"add new colors...",
+        data:addNewColor
+      })
+    }catch(err){
+      res.status(500).json({
+        message: err.message
+    });
+    }
+}
+const removeColor = async(req,res)=>{
+  try{
+    const removeColorObj = await productSchema.findByIdAndUpdate(req.params.id,{$pull:{productColor:req.body.productColor}},{new:true})
+      res.status(200).json({
+        message:"color removed..",
+        data:removeColorObj
+      })
+    }catch(err){
+      res.status(500).json({
+        message: err.message
+    });
+    }
 }
 
 module.exports = {
@@ -88,5 +112,8 @@ module.exports = {
     addProduct,
     deleteProduct,
     updateProduct,
-    searchProduct
+    searchProduct,
+    addColor,
+    removeColor
+
 }
