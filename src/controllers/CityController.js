@@ -33,12 +33,12 @@ const addCity = async(req,res)=>{
 const deleteCity = async(req,res)=>{
     const deleteCityObj = await citySchema.findByIdAndDelete(req.params.id)
     if(deleteCityObj){
-        res.status(201).json({
+        res.status(200).json({
             message:"delete city successFully..",
             data:deleteCityObj
         });
     }else{
-        res.status(201).json({
+        res.status(200).json({
             message:"record can not delete..."
         })
     }

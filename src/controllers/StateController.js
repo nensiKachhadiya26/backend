@@ -35,12 +35,12 @@ const addState = async(req,res)=>{
 const deleteState = async(req,res)=>{
     const deleteStateObj = await stateSchema.findByIdAndDelete(req.params.id)
     if(deleteStateObj){
-        res.status(201).json({
+        res.status(200).json({
             message:"delete record successfully..",
             data:deleteStateObj
         })
     }else{
-        res.status(204).json({
+        res.status(200).json({
             message:"data can not delete.."
         })
     }

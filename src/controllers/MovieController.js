@@ -33,12 +33,12 @@ const addMovie = async(req,res)=>{
 const deleteMovie = async(req,res)=>{
     const deleteMovieObj = await movieSchema.findByIdAndDelete(req.params.id)
     if(deleteMovieObj){
-        res.status(201).json({
+        res.status(200).json({
             message:"movie can deleted..",
             data:deleteMovieObj
         })
     }else{
-        res.status(201).json({
+        res.status(200).json({
             message:"movie can not delete.."
         })
     }

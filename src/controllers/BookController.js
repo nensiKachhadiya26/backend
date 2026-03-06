@@ -33,12 +33,12 @@ const addBook = async(req,res)=>{
 const deleteBook = async(req,res)=>{
     const deleteBookObj = await bookSchema.findByIdAndDelete(req.params.id)
     if(deleteBookObj){
-        res.status(201).json({
+        res.status(200).json({
             message:"delete record Sucessfully..",
             data:deleteBookObj
         });
     }else{
-         res.status(201).json({
+         res.status(200).json({
             message:"not delete record..",
         })
     }

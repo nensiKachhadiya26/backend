@@ -35,12 +35,12 @@ const addCategory = async(req,res)=>{
 const deleteCategory = async(req,res)=>{
     const deleteCategoryObj = await categorySchema.findByIdAndUpdate(req.params.id)
     if(deleteCategoryObj){
-        res.status(201).json({
+        res.status(200).json({
             message:"category can delete ..",
             data:deleteCategoryObj
         })
     }else{
-        res.status(201).json({
+        res.status(200).json({
             message:"category can not delete ..",
         })
     }
