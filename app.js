@@ -8,7 +8,7 @@ const userRoutes = require("./src/routes/UserRoutes")
 app.use(userRoutes) 
 
 const employeeRoutes = require("./src/routes/EmployeeRoutes")
-app.use(employeeRoutes)
+app.use("/emp",employeeRoutes)
 
 const productRoutes = require("./src/routes/ProductRoutes")
 app.use("/prod",productRoutes)
