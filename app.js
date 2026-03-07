@@ -28,6 +28,9 @@ app.use("/categoryApi",categoryRoutes)
 const movieRoutes = require("./src/routes/MovieRoutes")
 app.use("/movieApi",movieRoutes)
 
+const phoneRoutes = require("./src/routes/PhoneRoutes")
+app.use("/phoneApi",phoneRoutes)
+
 
 const PORT = 7102;
 app.listen(PORT,()=>{
